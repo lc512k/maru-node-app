@@ -15,6 +15,8 @@ app.post('/submit-form', (req, res) => {
 
 }).on("error", (err) => {
   console.log("Error: " + err.message);
+  let arr = [1,4,2,3];
+  arr.sort();
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
