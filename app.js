@@ -1,7 +1,8 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 var path = require('path');
-// app.use(express.urlencoded())
+const axios = require('axios');
+app.use(express.urlencoded());
 
 const port = 3000
 
@@ -10,13 +11,24 @@ app.get('/', function (req, res) {
 })
 
 app.post('/submit-form', (req, res) => {
-  const article = req.body.article
-  console.log(article)
+  const article = req.body.article;
+  const callConfig = {
+    method: 'get',
+    url: 'http://api.ft.com/content/search/v1?',
+    responseType: 'stream',
+    headers: {
+      'X-Api-Key':'',
+      'Content-Type':'application/json'
+  },
+  queryString: article,
+  };
+  res = await axios(callConfig);
+
+  console.log("res.status " + res.status);
+  console.log("res.data " + res.data);
 
 }).on("error", (err) => {
   console.log("Error: " + err.message);
-  let arr = [1,4,2,3];
-  arr.sort();
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
