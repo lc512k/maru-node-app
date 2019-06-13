@@ -2,7 +2,7 @@
   "name": "maru-node-app",
   "version": "1.0.0",
   "description": "Node Exercise",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/lc512k/maru-node-app#readme",
   "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "nodemon": "^1.19.0"
   }
