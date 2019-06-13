@@ -11,26 +11,11 @@ app.get('/', function (req, res) {
 })
 
 app.post('/submit-form', (req, res) => {
-  const article = req.body.article;
-  var url =  'http://api.ft.com/content/search/v1?';
+  const article = req.body.article
+ console.log(article)
 
-  const callConfig = {
-    headers: {
-      'X-Api-Key':'59cbaf20e3e06d3565778e7bde0b7e265f5844ddb68d827a9f3b7879',
-      'Content-Type':'application/json'
-    },
-    Connection:'keep-alive',
-
-    queryString: article,
-  };
-
-  axios.post(url, callConfig)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+}).on("error", (err) => {
+   console.log("Error: " + err.message);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
