@@ -16,7 +16,7 @@ app.post('/submit-form', (req, res) => {
 
   const callConfig = {
     headers: {
-      'X-Api-Key':'59cbaf20e3e06d3565778e7bde0b7e265f5844ddb68d827a9f3b7879',
+      'X-Api-Key':'',
       'Content-Type':'application/json'
     },
     queryString: article,
