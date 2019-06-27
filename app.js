@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+const fs = require('fs');
 var path = require('path');
 const axios = require('axios');
 app.use(express.urlencoded());
@@ -13,6 +14,7 @@ app.get('/', function (req, res) {
 app.post('/submit-form', (req, res) => {
   const article = req.body.article;
   var url =  'http://api.ft.com/content/search/v1?';
+  let data = '';
 
   const callConfig = {
     headers: {
@@ -27,14 +29,21 @@ app.post('/submit-form', (req, res) => {
     queryString: article
   };
 
-  axios.post(url, body, callConfig)
-    .then(function (response) {
+  axios.post(url, body, callConfig) 
+    .then(response => {
       console.log("got response");
       console.log(response.data);
+      // response.on('data', (chunk) => {
+      //   data += chunk;
+      // });      
+      var html = fs.readFileSync(__dirname + '/index.html', 'utf8' );
+      html = html.replace('{message}', response.data);
+      res.send(html);
     })
     .catch(function (error) {
       console.log(error);
     });
+    
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
