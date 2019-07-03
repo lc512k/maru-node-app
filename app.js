@@ -18,7 +18,7 @@ app.post('/submit-form', (req, res) => {
 
   const callConfig = {
     headers: {
-      'X-Api-Key': '59cbaf20e3e06d3565778e7bde0b7e265f5844ddb68d827a9f3b7879',
+      'X-Api-Key': process.env.MYAPIKEY,
       'Content-Type': 'application/json',
       'Accept': '*/*',
       'Connection': 'keep-alive',
@@ -32,12 +32,10 @@ app.post('/submit-form', (req, res) => {
   axios.post(url, body, callConfig) 
     .then(response => {
       console.log("got response");
-      console.log(response.data);
-      // response.on('data', (chunk) => {
-      //   data += chunk;
-      // });      
+      console.log(response.data.results[0].results);   
+      var obj = response.data;
       var html = fs.readFileSync(__dirname + '/index.html', 'utf8' );
-      html = html.replace('{message}', response.data);
+      html = html.replace('{message}', JSON.stringify(obj.results[0].results));
       res.send(html);
     })
     .catch(function (error) {
